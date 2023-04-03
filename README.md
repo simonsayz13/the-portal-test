@@ -32,6 +32,16 @@ Provide a CSV input file consists of 3 columns of data: `product_code`, `quantit
 
 The `result.csv` is then generated in the root of the project folder.
 
+`result.csv` should contain the following output:
+
+    product_code,quantity,pick_location
+    26982,1,B 2
+    36389,4,F 1
+    25214,10,F 2
+    25636,1,AZ 4
+    15248,10,AZ 5
+
+
 ## Running Tests
 
     npm test
