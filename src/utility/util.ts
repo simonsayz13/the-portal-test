@@ -1,5 +1,5 @@
 import { createObjectCsvWriter } from "csv-writer";
-import { ItemData } from "../types/types";
+import { ItemData, ItemInfo } from "../types/types";
 import { RESULT_FILE } from "../config/constants";
 
 export function sortRouteV1(inputArray: Array<ItemData>): Array<ItemData> {
@@ -34,6 +34,7 @@ export function sortRouteV1(inputArray: Array<ItemData>): Array<ItemData> {
   });
 }
 
+// Cached result of .split(" ")
 export function sortRouteV2(inputArray: Array<ItemData>): Array<ItemData> {
   inputArray.sort((itemA: ItemData, itemB: ItemData) => {
     const [itemABay, itemAShelf] = itemA.pick_location.split(" ");
@@ -60,6 +61,45 @@ export function sortRouteV2(inputArray: Array<ItemData>): Array<ItemData> {
     return 0;
   });
   return inputArray;
+}
+
+// Pre-process the bay and shelf before passing it to sort()
+export function sortRouteV3(inputArray: Array<ItemData>): Array<ItemInfo> {
+  let newItemArray: Array<ItemInfo> = [];
+
+  for (const item of inputArray) {
+    const [itemBay, itemShelf] = item.pick_location.split(" ");
+    newItemArray.push({
+      product_code: item.product_code,
+      quantity: item.quantity,
+      pick_location: item.pick_location,
+      bay: itemBay,
+      shelf: Number(itemShelf),
+    });
+  }
+
+  newItemArray.sort((itemA: ItemInfo, itemB: ItemInfo) => {
+    if (itemA.bay.length < itemB.bay.length) {
+      return -1;
+    }
+    if (itemA.bay.length > itemB.bay.length) {
+      return 1;
+    }
+    if (itemA.bay < itemB.bay) {
+      return -1;
+    }
+    if (itemA.bay > itemB.bay) {
+      return 1;
+    }
+    if (itemA.shelf < itemB.shelf) {
+      return -1;
+    }
+    if (itemA.shelf > itemB.shelf) {
+      return 1;
+    }
+    return 0;
+  });
+  return newItemArray;
 }
 
 export function writeResult(resultArray: Array<ItemData>): void {
