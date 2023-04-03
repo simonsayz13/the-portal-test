@@ -1,6 +1,6 @@
 # The Portal Test
 
-This application produces an optimised route for a a very specific warehouse
+This application produces an optimised route for a very specific warehouse
 
 # Tech & Packages
 
