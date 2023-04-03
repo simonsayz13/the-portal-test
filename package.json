@@ -1,0 +1,25 @@
+{
+  "name": "hb-the-portal-test",
+  "version": "1.0.0",
+  "description": "The Port Test - Warehouse Routing Algorithm",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll",
+    "start": "nodemon ./src/index.ts"
+  },
+  "author": "Simon Tan",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^18.15.11",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
+    "nodemon": "^2.0.22"
+  }
+}
